@@ -44,7 +44,7 @@ class Dashboard extends React.Component  {
     }
 
     onCardClicked = (idFromCard) => {
-        console.log(this.state.productCard[idFromCard - 1])
+        console.log(this.state.productCards[idFromCard - 1])
   
         this.setState(
             {
