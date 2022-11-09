@@ -21,14 +21,22 @@ class Dashboard extends React.Component  {
     componentDidMount(){
         let productCards = [
             {
+                id: 1,
                 name:"Placeholder"
         
             },
             {
+                id: 2,
                 name:"Disney Castle",
                 img: disneycastleImage
             },
             {
+                id: 3,
+                name:" Pinnochio" , 
+               img: pinnochioImage
+            },
+            {
+                id: 4,
                 name:" Pinnochio" , 
                img: pinnochioImage
             } 

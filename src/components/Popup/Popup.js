@@ -11,7 +11,6 @@ class Popup extends React.Component{
     updateProducts = () =>{
         if(this.state.input !== ""){
             this.props.addButtonClicked(this.state.input);
-            console.log("hallo");
         }
         
     }
@@ -19,7 +18,7 @@ class Popup extends React.Component{
         console.log(this.state.input);
         return (
             <article className="popup">
-                <div class ="popup__wrapper">
+                <div className ="popup__wrapper">
                 <label htmlFor="name"className="popup__label">Naam</label>
                 <input onChange={this.input} value={this.state.input}type="text" className="popup__input" id="name"/>
                 </div>
