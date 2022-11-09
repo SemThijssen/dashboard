@@ -1,0 +1,33 @@
+*, *::before,*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ 
+}
+
+html{
+    font-size: 62.5%;
+}
+body{
+    font-size: 2rem;
+    font-family: sans-serif;
+    color: #a7b9ec;
+    padding: 4rem;
+    background: linear-gradient(to bottom right,#98b0f2,95%,#395fd4);
+    min-height: 100vh;
+   
+
+}
+
+
+#root{
+    display: flex;
+    justify-content: center;
+  
+ 
+}    
+
+a, a:visited, a:link, a:active{
+    text-decoration: none;
+    color: #a7b9ec;
+}
