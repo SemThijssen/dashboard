@@ -11,6 +11,7 @@ class Popup extends React.Component{
     updateProducts = () =>{
         if(this.state.input !== ""){
             this.props.addButtonClicked(this.state.input);
+            console.log("hallo");
         }
         
     }
