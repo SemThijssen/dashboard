@@ -2,63 +2,41 @@ import React from "react"
 import LeftPane from "../LeftPane/LeftPane";
 import RightPane from "../RightPane/RightPane";
 import "./Dashboard.css"
-import disneycastleImage from "../../img/pexels-benjamin-suter-2362002.jpg";
-import pinnochioImage from "../../img/pinnochio.jpeg";
+import chooseImage from "../../helpers/chooseImage";
 import Popup from "../Popup/Popup";
-import WaltandMickeyImage from"../../img/pexels-david-guerrero-8183995.jpg";
-import WaltStarImage from"../../img/pexels-ekaterina-belinskaya-4700140.jpg";
+import productsObject from "../../data/products";
 
+import navigationItemsObject from "../../data/navigationItmes";
 
 class Dashboard extends React.Component  {
 
     constructor(props){
         super(props);
-        this.state = {productCards: [], open: true};
+        this.state = {
+            productCards: [],
+            open: true,
+            cardClicked: {},
+            editMode: false,
+    };
     }
-
     
 
     componentDidMount(){
-        let productCards = [
-            {
-                name:"Placeholder"
-        
-            },
-            {
-                name:"Disney Castle",
-                img: disneycastleImage
-            },
-            {
-                name:" Pinnochio" , 
-               img: pinnochioImage
-            } 
-        ];
-        this.setState({productCards: productCards});
+       
+        this.setState({productCards: productsObject.products});
     }
     
     onButtonClicked = () => {
         this.setState({open: !this.state.open})
     }
     addButtonClicked = (inputFromPopup) =>{
-        let toBeAddedImage;
-      switch(inputFromPopup){
-        case("Pinnochio"):
-        toBeAddedImage = pinnochioImage;
-        break;
-        case("Disney Kasteel"):
-        toBeAddedImage = disneycastleImage;
-        break;
-        case("Walt en Mickey"):
-        toBeAddedImage = WaltandMickeyImage;
-        break;
-        default:
-        toBeAddedImage = WaltStarImage;
-        break;
-      }
+        let imageFromHelper =  chooseImage(inputFromPopup);
+      
       let toBeAdded = [
         {
+            id:this.state.productCards.length +1,
             name: inputFromPopup,
-            img: toBeAddedImage
+            img: imageFromHelper
         }
     ]
     
@@ -68,40 +46,50 @@ class Dashboard extends React.Component  {
         open: !this.state.open,
     })
     }
-render(){
-    let navigationListItems =
-    [
-        {
-            name: "Home",
-            message: 0,
-        },
-        {
-            name: "facturen",
-            message: 3,
-        },
-        {
-            name: "Bestellingen",
-            message: 0,
-        },
-        {
-            name: "Retour",
-            message: 1,
-        },
-        {
-            name: "Contact",
-            message: 2,
-        },
+
+    editButtonClicked = (inputFromPopup) => {
+        let productCards = this.state.productCards;
+        let newState = productCards.map(product =>{
+if(this.state.cardClicked.id === product.id){
+    product.name = inputFromPopup
+    return product;
+    
+}
+else{
+    return product;
+}    
+});
+       this.setState({ productCards: newState, open:true});
+ }
+
+    onCardClicked = (idFromCard) => {
+        if(this.state.productCards[idFromCard - 1].name === "Placeholder"){
+        this.setState({
+            editMode:false,
+                open: !this.state.open,
+                    cardClicked: this.state.productCards[idFromCard - 1],
+        });
+      return;
         
-];
+            };
+            this.setState({
+                editMode:true,
+                    open: !this.state.open,
+                        cardClicked: this.state.productCards[idFromCard - 1],
+            });
+    }
+render(){
+ 
+    
 if (this.state.open === true){
     return( <article className="dashboard">
-    <LeftPane navigationListItems={navigationListItems} buttonText="Go Premium!"></LeftPane>
-    <RightPane onButtonClicked={this.onButtonClicked}productCards={this.state.productCards}headerText={"Mijn Producten"} buttonSymbol="+" buttonText="Voeg een product toe"></RightPane>
+    <LeftPane navigationListItems={navigationItemsObject.navigationItems} buttonText="Go Premium!"></LeftPane>
+    <RightPane  onProductCardClicked={this.onCardClicked}onButtonClicked={this.onButtonClicked}productCards={this.state.productCards}headerText={"Mijn Producten"} buttonSymbol="+" buttonText="Voeg een product toe"></RightPane>
 </article>
 );
 }
 return (
-    <Popup addButtonClicked={this.addButtonClicked }/>
+    <Popup editButtonClicked={this.editButtonClicked}editMode={this.state.editMode} cardClicked={this.state.cardClicked}addButtonClicked={this.addButtonClicked }/>
 )
 
 }
