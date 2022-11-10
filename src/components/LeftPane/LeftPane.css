@@ -34,7 +34,7 @@
     font-size: 80%;
     transform: translateY(-8px);
     transition: 0.8s all;
-    color:#eee;
+    color:#eee
 }
 .dashboard__button{
     width: 20rem;

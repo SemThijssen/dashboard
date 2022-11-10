@@ -21,7 +21,7 @@ class Popup extends React.Component{
     }
 
     editProduct =() =>{
-        console.log("edit");
+       this.props.editButtonClicked(this.state.input);
     }
     render(){
         let button = <button onClick={this.addProduct}className="popup__button">voeg toe</button>;
